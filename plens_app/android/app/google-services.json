@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "132180015871",
+    "project_id": "plens-app",
+    "storage_bucket": "plens-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132180015871:android:ce13c804d18cdec72c2aca",
+        "android_client_info": {
+          "package_name": "com.example.plens_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132180015871-u6cjt37us3cegelemnu2bultmcsqfrl8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUJAXMtd-GDbdem1w2odqMLJrXXstxN2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132180015871-u6cjt37us3cegelemnu2bultmcsqfrl8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
