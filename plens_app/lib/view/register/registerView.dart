@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:plens_app/view/registerView.dart';
+import '../login/loginView.dart';
 
-class LoginView extends StatelessWidget {
+class RegisterView extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Register'),
       ),
       body: Center(
         child: ElevatedButton(
-          child: Text('Register'),
+          child: Text('Login'),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterView()),
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Login()),
             );
           },
         ),
