@@ -16,12 +16,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
     return FutureBuilder(future: _initialization,
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return snapshot.error;
+          return error;
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
@@ -34,10 +33,26 @@ class MyApp extends StatelessWidget {
         }
         // Otherwise, show something whilst waiting for initialization to complete
         // need changes else Error
-        return Scaffold();
+        return init;
       },
     );
-    
-
   }
+
+  Widget init = new MediaQuery(data: new MediaQueryData(),
+      child: new MaterialApp(home: Scaffold(
+        appBar: AppBar(
+          title: Text('Home'),
+        ),
+      ),
+      ),
+  );
+
+  Widget error = new MediaQuery(data: new MediaQueryData(),
+    child: new MaterialApp(
+      home: SizedBox(
+        height: 30,
+        child: Text('An Error occurred'),
+      )
+    ),
+  );
 }

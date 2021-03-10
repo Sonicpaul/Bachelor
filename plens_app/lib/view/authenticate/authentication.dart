@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plens_app/view/login/loginView.dart';
+import 'package:plens_app/view/login/sign_in_view.dart';
+import 'package:plens_app/view/register/register_view.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class Authenticate extends StatefulWidget {
 
 class _AuthenticateState extends State<Authenticate> with SingleTickerProviderStateMixin {
   AnimationController _controller;
+
+  bool showSignIn = true;
 
   @override
   void initState() {
@@ -23,8 +26,16 @@ class _AuthenticateState extends State<Authenticate> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Login(),
-    );
+    if (showSignIn){
+      return SignIn(toggleView: toggleView);
+    }else{
+      return Register(toggleView: toggleView);
+    }
   }
+
+  // toggle the Flag
+  void toggleView(){
+    setState(() => showSignIn = !showSignIn);
+  }
+
 }
