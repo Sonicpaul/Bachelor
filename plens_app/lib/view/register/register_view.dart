@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plens_app/services/auth.dart';
+import 'package:plens_app/shared/loading.dart';
 
 class Register extends StatefulWidget {
 
@@ -15,6 +16,7 @@ class _RegisterState extends State<Register> {
 
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
   // store E-mail and PW
   String email = '';
@@ -23,7 +25,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
         backgroundColor: Colors.blue[400],
@@ -35,7 +37,7 @@ class _RegisterState extends State<Register> {
                 widget.toggleView();
               },
               icon: Icon(Icons.person),
-            label: Text('SignIn'),
+              label: Text('SignIn'),
           )
         ],
       ),
@@ -64,8 +66,12 @@ class _RegisterState extends State<Register> {
               ElevatedButton(
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
+                    setState(() {
+                      loading = true;
+                    });
                     dynamic result = await _authService.registerWithEmailAndPass(email, pass);
                     if(result == null){
+                      loading = false;
                       setState(() => error = 'please enter a valid Email');
                     }
                   }

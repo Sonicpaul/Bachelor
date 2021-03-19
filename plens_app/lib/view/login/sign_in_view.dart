@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plens_app/services/auth.dart';
+import 'package:plens_app/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -15,6 +16,7 @@ class _SignInState extends State<SignIn> {
 
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
   // store E-mail and PW
   String email = '';
@@ -23,7 +25,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
         backgroundColor: Colors.blue[400],
@@ -64,9 +66,13 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                   onPressed: () async {
                     if(_formKey.currentState.validate()){
+                      setState(() => loading = true);
                       dynamic result = await _authService.signInWithEmailAndPass(email, pass);
                       if(result == null){
-                        setState(() => error = 'Could not Sign in with these credentials!');
+                        setState(() {
+                          error = 'Could not Sign in with these credentials!';
+                          loading = false;
+                        });
                       }
                     }
                   },

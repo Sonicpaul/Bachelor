@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
 import 'package:plens_app/models/user.dart' as plens;
+import 'package:plens_app/services/database.dart';
 
 class AuthService {
 
@@ -50,6 +51,10 @@ class AuthService {
     try {
       firebase.UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: pass);
       firebase.User user = result.user;
+
+      // create a new doc for the user
+      await DatabaseService(uid: user.uid).updateUserData('newUser', user.email, 'phone', 0.0);
+
       return _userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
@@ -66,5 +71,4 @@ class AuthService {
       return null;
     }
 }
-
 }
