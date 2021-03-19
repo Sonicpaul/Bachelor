@@ -33,8 +33,25 @@ class DatabaseService{
     }).toList();
   }
 
-  // create Stream
+  // userdata from snapshot
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
+    return UserData(
+        uid: uid,
+        name: snapshot.data()['name'] ?? '',
+        email: snapshot.data()['email'] ?? '',
+        phone: snapshot.data()['phone'] ?? '',
+        workTimeMonthly: snapshot.data()['workTimeMonthly'] ?? 0,
+    );
+  }
+
+  // create user Stream
   Stream<List<User>> get users{
     return userCollection.snapshots().map(_userListFromSnapshot);
   }
+
+  // get user doc stream
+  Stream<UserData> get userData {
+    return userCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+  }
+
 }
