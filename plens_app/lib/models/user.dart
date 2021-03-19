@@ -1,5 +1,9 @@
 class User{
   final String uid;
+  final String name;
+  final String email;
+  final String phone;
+  final double workTimeMonthly;
 
-  User({this.uid});
+  User({this.uid, this.name, this.email, this.phone, this.workTimeMonthly});
 }

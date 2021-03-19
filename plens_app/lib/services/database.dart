@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:plens_app/models/user.dart';
 
 class DatabaseService{
 
@@ -19,4 +20,21 @@ class DatabaseService{
     });
   }
 
+  // user list from Snapshot
+  List<User> _userListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return User(
+        uid : doc.id ?? '',
+        name: doc.data()['name'] ?? '',
+        email: doc.data()['email'] ?? '',
+        phone: doc.data()['phone'] ?? '',
+        workTimeMonthly: doc.data()['workTimeMonthly'] ?? 0,
+      );
+    }).toList();
+  }
+
+  // create Stream
+  Stream<List<User>> get users{
+    return userCollection.snapshots().map(_userListFromSnapshot);
+  }
 }
