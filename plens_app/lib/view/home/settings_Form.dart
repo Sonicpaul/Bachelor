@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plens_app/models/user.dart';
+import 'package:plens_app/services/auth.dart';
 import 'package:plens_app/services/database.dart';
 import 'package:plens_app/shared/constants.dart';
 import 'package:plens_app/shared/loading.dart';
@@ -13,11 +14,14 @@ class SettingsForm extends StatefulWidget {
 class _SettingsFormState extends State<SettingsForm> {
 
   final _formKey = GlobalKey<FormState>();
+  final AuthService _authService = AuthService();
 
   // form values
   String _currentName;
   String _currentPhone;
   String _currentEmail;
+
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   validator: (val) => val.isEmpty ? 'Please enter a email' : null,
                   onChanged: (val) => setState(() => _currentEmail = val),
                 ),
+                Text(error, style: TextStyle(color: Colors.red, fontSize: 10)),
                 SizedBox(height: 20),
                 TextFormField(
                   initialValue: userData.phone,
@@ -61,6 +66,22 @@ class _SettingsFormState extends State<SettingsForm> {
                 ElevatedButton(
                   child: Text('Update'),
                   onPressed: () async {
+                    if(_formKey.currentState.validate()){
+                      dynamic result = await _authService.updateUserEmail(_currentEmail ?? userData.email);
+
+                      if(result == null){
+                       setState(() => error = 'Check the Email address please or try to log out and sign in again.');
+
+                      }else{
+                        print(result);
+                      await DatabaseService(uid: user.uid).updateUserData(
+                          _currentName ?? userData.name,
+                          _currentEmail ?? userData.email,
+                          _currentPhone ?? userData.phone
+                      );
+                        Navigator.pop(context);
+                      }
+                    }
                   },
                 )
               ],
