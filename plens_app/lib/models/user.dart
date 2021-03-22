@@ -14,7 +14,8 @@ class UserData{
   final String email;
   final String phone;
   final double workTimeMonthly;
+  final List<String> projectList;
 
-  UserData({this.uid, this.name, this.email, this.phone, this.workTimeMonthly});
+  UserData({this.uid, this.name, this.email, this.phone, this.workTimeMonthly, this.projectList});
 
 }
