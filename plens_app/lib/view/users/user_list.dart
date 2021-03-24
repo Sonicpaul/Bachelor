@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plens_app/models/user.dart';
-import 'package:plens_app/view/home/user_tile.dart';
+import 'package:plens_app/view/users/user_tile.dart';
 import 'package:provider/provider.dart';
 
 class UserList extends StatefulWidget {

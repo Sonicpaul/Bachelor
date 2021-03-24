@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:plens_app/models/user.dart';
 import 'package:plens_app/services/auth.dart';
-import 'package:plens_app/services/database.dart';
 import 'package:plens_app/view/home/settings_Form.dart';
-import 'package:plens_app/view/home/user_list.dart';
-import 'package:provider/provider.dart';
+import 'package:plens_app/view/projects/project_Widget.dart';
+import 'package:plens_app/view/users/user_widget.dart';
 
 class Home extends StatelessWidget {
 
@@ -22,9 +20,9 @@ class Home extends StatelessWidget {
       });
     }
 
-    return StreamProvider<List<User>>.value(
-        value: DatabaseService().users,
-      child: Scaffold(
+
+
+    return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: Text('Home'),
@@ -44,8 +42,30 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-        body: UserList(),
-    )
+        body: Column(
+          children: <Widget>[
+            InkWell(
+             child: Container(
+               padding: EdgeInsets.all(20),
+               color: Colors.deepPurple,
+               child: Text('UserList'),
+             ),
+             onTap: () {
+               Navigator.push(context, MaterialPageRoute(builder: (context) => UserWidget()));
+             }
+            ),
+            InkWell(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  color: Colors.red,
+                  child: Text('ProjectList'),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProjectWidget()));
+                }
+            )
+          ],
+        )
     );
   }
 }

@@ -20,7 +20,6 @@ class _ProjectListState extends State<ProjectList> {
       itemBuilder: (context, index){
         return ProjectTile(project: projects[index],);
       }
-
     );
   }
 }

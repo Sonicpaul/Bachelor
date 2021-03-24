@@ -58,7 +58,7 @@ class DatabaseService{
         contact: doc.data()['contact'] ?? '',
         employees: doc.data()['employees'] ?? '',
       );
-    });
+    }).toList();
   }
 
   // userdata from snapshot
