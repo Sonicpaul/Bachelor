@@ -12,13 +12,18 @@ class ProjectWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     void _addANewProject(){
-      showModalBottomSheet(context: context, builder: (context) {
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-          child: AddAProject(),
-        );
-      });
+      showModalBottomSheet(
+          isScrollControlled: true,
+          context: context,
+          builder: (context) {
+            return Container(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              height: MediaQuery.of(context).size.height *0.95,
+              child: AddAProject(),
+            );
+          });
     }
+
 
     return StreamProvider<List<Project>>.value(
         value: DatabaseService().projects,

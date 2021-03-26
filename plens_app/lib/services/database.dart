@@ -56,7 +56,7 @@ class DatabaseService{
         address: doc.data()['address'] ?? '',
         customer: doc.data()['customer'] ?? '',
         contact: doc.data()['contact'] ?? '',
-        employees: doc.data()['employees'] ?? '',
+        employees: doc.data()['employees'] ?? [],
       );
     }).toList();
   }
@@ -105,5 +105,22 @@ class DatabaseService{
   // get project doc stream
   Stream<Project> get projectData{
     return projectCollection.doc(uid).snapshots().map(_projectDataFromSnapshot);
+  }
+
+  // UserList from Database
+  Future<List<User>> getUserList() async {
+
+    QuerySnapshot qShot =
+    await FirebaseFirestore.instance.collection('users').get();
+
+    return qShot.docs.map(
+            (doc) => User(
+              uid : doc.id ?? '',
+              name: doc.data()['name'] ?? '',
+              email: doc.data()['email'] ?? '',
+              phone: doc.data()['phone'] ?? '',
+              workTimeMonthly: doc.data()['workTimeMonthly'] ?? 0,
+            )
+    ).toList();
   }
 }

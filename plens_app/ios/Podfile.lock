@@ -313,12 +313,15 @@ PODS:
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
   - PromisesObjC (1.2.12)
+  - searchable_dropdown (1.1.1):
+    - Flutter
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - searchable_dropdown (from `.symlinks/plugins/searchable_dropdown/ios`)
 
 SPEC REPOS:
   trunk:
@@ -347,6 +350,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  searchable_dropdown:
+    :path: ".symlinks/plugins/searchable_dropdown/ios"
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -368,7 +373,8 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  searchable_dropdown: 5058be32fdc5e0481d300ff2087129072e71bd62
 
 PODFILE CHECKSUM: f093997cba58e9be1d964b4069cc59b9add41a2a
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1
