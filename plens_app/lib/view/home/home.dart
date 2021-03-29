@@ -20,8 +20,6 @@ class Home extends StatelessWidget {
       });
     }
 
-
-
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(

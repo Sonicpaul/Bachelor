@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plens_app/models/project.dart';
+import 'package:plens_app/view/projects/project_details.dart';
 
 class ProjectTile extends StatelessWidget {
 
@@ -16,6 +17,9 @@ class ProjectTile extends StatelessWidget {
         child: ListTile(
           title: Text(project.abbreviation + ' - ' + project.name),
           subtitle: Text(project.customer + ' - ' +  project.contact),
+        onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ProjectDetails(project: project,)));
+        },
         ),
       ),
     );

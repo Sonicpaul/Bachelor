@@ -24,7 +24,6 @@ class ProjectWidget extends StatelessWidget {
           });
     }
 
-
     return StreamProvider<List<Project>>.value(
         value: DatabaseService().projects,
         child: Scaffold(
