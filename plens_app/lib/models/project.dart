@@ -1,3 +1,5 @@
+import 'package:plens_app/models/user.dart';
+
 class Project{
   final String uid;
   final String name;

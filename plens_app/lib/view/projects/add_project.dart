@@ -20,11 +20,11 @@ class _AddAProjectState extends State<AddAProject> {
   // form values
   String _name;
   String _abbreviation;
-  String _leader;
+  String _leader = '';
   String _address;
   String _customer;
   String _contact;
-  List _employees;
+  List<String> _employees = <String>[];
 
   String error = '';
 
@@ -54,12 +54,15 @@ class _AddAProjectState extends State<AddAProject> {
                 onChanged: (val) => setState(() => _abbreviation = val),
               ),
               SizedBox(height: 20),
-              TextFormField(
+              leaderSelection(),
+              /*TextFormField(
                 decoration: textInputDecoration,
                 validator: (val) =>
                 val.isEmpty ? 'Please enter the leader for the Project' : null,
                 onChanged: (val) => setState(() => _leader = val),
               ),
+
+               */
               SizedBox(height: 20),
               TextFormField(
                 decoration: textInputDecoration,
@@ -105,7 +108,37 @@ class _AddAProjectState extends State<AddAProject> {
         )
       ],
     );
-
+  }
+  
+  Widget leaderSelection(){
+    return FutureBuilder<List<User>>(
+      future: DatabaseService().getUserList(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final List<User> users = snapshot.data;
+            final List<DropdownMenuItem<String>> dropdownItem = users.map((entry) => DropdownMenuItem<String>(
+              child: Text(entry.name),
+              value: entry.uid,
+            )).toList();
+            return SearchableDropdown.single(
+                items: dropdownItem,
+                hint: 'Select the leader of this Project',
+                searchHint: '',
+                value: _leader,
+                isExpanded: true,
+                onChanged: (value) {
+                  setState(() {
+                    _leader = value;
+                    print(_leader);
+                  });
+            });
+          } else if (snapshot.hasError) {
+            return Text(snapshot.error);
+          } else {
+            return Loading();
+          }
+        }
+    );
   }
 
   Widget employeeSelection(){
@@ -120,15 +153,14 @@ class _AddAProjectState extends State<AddAProject> {
             )).toList();
             return SearchableDropdown.multiple(
                   items: dropdownItem,
-                  selectedItems: _employees,
                   hint: 'Select the employees you want to assign to the Project.',
                   searchHint: '',
                   doneButton: "Apply",
                   closeButton: SizedBox.shrink(),
-                  onChanged: (value) {
-                    setState(() {
-                      _employees = value;
-                    });
+                  onChanged: ( value) {
+                    for(int i in value){
+                      _employees.add(users[i].uid);
+                    }
                   },
                   dialogBox: false,
                   isExpanded: true,
