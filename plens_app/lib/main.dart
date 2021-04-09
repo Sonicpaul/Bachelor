@@ -11,12 +11,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(future: _initialization,
+    return FutureBuilder(
+      future: _initialization,
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return StreamProvider<User>.value(
             value: AuthService().user,
+            initialData: null,
             child: MaterialApp(
               home: Wrapper(),
             ),
@@ -38,21 +39,23 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Widget init = new MediaQuery(data: new MediaQueryData(),
-      child: new MaterialApp(home: Scaffold(
+  Widget init = new MediaQuery(
+    data: new MediaQueryData(),
+    child: new MaterialApp(
+      home: Scaffold(
         appBar: AppBar(
           title: Text('Home'),
         ),
       ),
-      ),
+    ),
   );
 
-  Widget error = new MediaQuery(data: new MediaQueryData(),
+  Widget error = new MediaQuery(
+    data: new MediaQueryData(),
     child: new MaterialApp(
-      home: SizedBox(
-        height: 30,
-        child: Text('An Error occurred'),
-      )
-    ),
+        home: SizedBox(
+      height: 30,
+      child: Text('An Error occurred'),
+    )),
   );
 }

@@ -2,41 +2,50 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:plens_app/models/project.dart';
 import 'package:plens_app/models/user.dart';
 
-class DatabaseService{
-
+class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-
   // Collection reference
-  final CollectionReference projectCollection = FirebaseFirestore.instance.collection('projects');
-  final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference projectCollection =
+      FirebaseFirestore.instance.collection('projects');
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('users');
 
   Future updateUserData(String name, String email, String phoneNumber) async {
     return await userCollection.doc(uid).set({
-      'name' : name,
-      'email' : email,
-      'phone' : phoneNumber,
+      'name': name,
+      'email': email,
+      'phone': phoneNumber,
     });
   }
 
-  Future updateProjectData(String name, String abbreviation, String leader, String address, String customer, String contact, List employees ) async{
+  Future updateProjectData(
+      String name,
+      String abbreviation,
+      String leader,
+      String addressStreetAndNumber,
+      String addressPostcodeAndRegion,
+      String customer,
+      String contact,
+      List employees) async {
     return await projectCollection.doc(uid).set({
-      'name' : name,
-      'abbreviation' : abbreviation,
-      'leader' : leader,
-      'address' : address,
-      'customer' : customer,
-      'contact' : contact,
-      'employees' : employees
+      'name': name,
+      'abbreviation': abbreviation,
+      'leader': leader,
+      'addressStreetAndNumber': addressStreetAndNumber,
+      'addressPostcodeAndRegion': addressPostcodeAndRegion,
+      'customer': customer,
+      'contact': contact,
+      'employees': employees
     });
   }
 
   // user list from Snapshot
-  List<User> _userListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
+  List<User> _userListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
       return User(
-        uid : doc.id ?? '',
+        uid: doc.id ?? '',
         name: doc.data()['name'] ?? '',
         email: doc.data()['email'] ?? '',
         phone: doc.data()['phone'] ?? '',
@@ -46,14 +55,15 @@ class DatabaseService{
   }
 
   // project List from Snapshot
-  List<Project> _projectListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
+  List<Project> _projectListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
       return Project(
         uid: doc.id ?? '',
         name: doc.data()['name'] ?? '',
         abbreviation: doc.data()['abbreviation'] ?? '',
         leader: doc.data()['leader'] ?? '',
-        address: doc.data()['address'] ?? '',
+        addressStreetAndNumber: doc.data()['addressStreetAndNumber'] ?? '',
+        addressPostcodeAndCity: doc.data()['addressPostcodeAndRegion'] ?? '',
         customer: doc.data()['customer'] ?? '',
         contact: doc.data()['contact'] ?? '',
         employees: doc.data()['employees'] ?? [],
@@ -62,25 +72,26 @@ class DatabaseService{
   }
 
   // userdata from snapshot
-  UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
-        uid: uid,
-        name: snapshot.data()['name'] ?? '',
-        email: snapshot.data()['email'] ?? '',
-        phone: snapshot.data()['phone'] ?? '',
-        workTimeMonthly: snapshot.data()['workTimeMonthly'] ?? 0,
-        projectList: snapshot.data()['projectList'] ?? [],
+      uid: uid,
+      name: snapshot.data()['name'] ?? '',
+      email: snapshot.data()['email'] ?? '',
+      phone: snapshot.data()['phone'] ?? '',
+      workTimeMonthly: snapshot.data()['workTimeMonthly'] ?? 0,
+      projectList: snapshot.data()['projectList'] ?? [],
     );
   }
 
   //ProjectData from Snapshot
-  Project _projectDataFromSnapshot(DocumentSnapshot snapshot){
+  Project _projectDataFromSnapshot(DocumentSnapshot snapshot) {
     return Project(
       uid: snapshot.id ?? '',
       name: snapshot.data()['name'] ?? '',
       abbreviation: snapshot.data()['abbreviation'] ?? '',
       leader: snapshot.data()['leader'] ?? '',
-      address: snapshot.data()['address'] ?? '',
+      addressStreetAndNumber: snapshot.data()['addressStreetAndNumber'] ?? '',
+      addressPostcodeAndCity: snapshot.data()['addressPostcodeAndRegion'] ?? '',
       customer: snapshot.data()['customer'] ?? '',
       contact: snapshot.data()['contact'] ?? '',
       employees: snapshot.data()['employees'] ?? '',
@@ -88,12 +99,12 @@ class DatabaseService{
   }
 
   // create user Stream
-  Stream<List<User>> get users{
+  Stream<List<User>> get users {
     return userCollection.snapshots().map(_userListFromSnapshot);
   }
 
   // create project Stream
-  Stream<List<Project>> get projects{
+  Stream<List<Project>> get projects {
     return projectCollection.snapshots().map(_projectListFromSnapshot);
   }
 
@@ -103,24 +114,23 @@ class DatabaseService{
   }
 
   // get project doc stream
-  Stream<Project> get projectData{
+  Stream<Project> get projectData {
     return projectCollection.doc(uid).snapshots().map(_projectDataFromSnapshot);
   }
 
   // UserList from Database
   Future<List<User>> getUserList() async {
-
     QuerySnapshot qShot =
-    await FirebaseFirestore.instance.collection('users').get();
+        await FirebaseFirestore.instance.collection('users').get();
 
-    return qShot.docs.map(
-            (doc) => User(
-              uid : doc.id ?? '',
+    return qShot.docs
+        .map((doc) => User(
+              uid: doc.id ?? '',
               name: doc.data()['name'] ?? '',
               email: doc.data()['email'] ?? '',
               phone: doc.data()['phone'] ?? '',
               workTimeMonthly: doc.data()['workTimeMonthly'] ?? 0,
-            )
-    ).toList();
+            ))
+        .toList();
   }
 }

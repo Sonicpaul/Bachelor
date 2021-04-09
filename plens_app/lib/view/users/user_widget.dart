@@ -6,7 +6,6 @@ import 'package:plens_app/view/users/user_list.dart';
 import 'package:provider/provider.dart';
 import 'package:plens_app/models/user.dart';
 
-
 class UserWidget extends StatefulWidget {
   @override
   _UserWidgetState createState() => _UserWidgetState();
@@ -18,39 +17,39 @@ class _UserWidgetState extends State<UserWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<User>>.value(
-    value: DatabaseService().users,
-    child: Scaffold(
-      backgroundColor: Colors.blue[100],
-      appBar: AppBar(
-        title: Text('Home'),
-        elevation: 1.0,
-        actions: <Widget>[
-          ElevatedButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('logout'),
-            onPressed: () async{
-              await _auth.signOut();
-            },
+        value: DatabaseService().users,
+        initialData: [],
+        child: Scaffold(
+          backgroundColor: Colors.blue[100],
+          appBar: AppBar(
+            title: Text('Home'),
+            elevation: 1.0,
+            actions: <Widget>[
+              ElevatedButton.icon(
+                icon: Icon(Icons.person),
+                label: Text('logout'),
+                onPressed: () async {
+                  await _auth.signOut();
+                },
+              ),
+              ElevatedButton.icon(
+                  onPressed: () => _showSettingsPanel(),
+                  icon: Icon(Icons.settings),
+                  label: Text('settings'))
+            ],
           ),
-          ElevatedButton.icon(
-              onPressed: () => _showSettingsPanel(),
-              icon: Icon(Icons.settings),
-              label: Text('settings')
-          )
-        ],
-      ),
-      body: UserList(),
-    )
-    );
-
+          body: UserList(),
+        ));
   }
 
   void _showSettingsPanel() {
-    showModalBottomSheet(context: context, builder: (context) {
-      return Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-        child: SettingsForm(),
-      );
-    });
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+            child: SettingsForm(),
+          );
+        });
   }
 }
