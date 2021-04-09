@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plens_app/services/auth.dart';
 import 'package:plens_app/view/home/settings_Form.dart';
 import 'package:plens_app/view/projects/project_Widget.dart';
+import 'package:plens_app/view/time/time_register.dart';
 import 'package:plens_app/view/users/user_widget.dart';
 
 class Home extends StatelessWidget {
@@ -61,7 +62,20 @@ class Home extends StatelessWidget {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ProjectWidget()));
-                })
+                }),
+            InkWell(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                color: Colors.pink,
+                child: Text('Time Registration'),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TimeRegistration()));
+              },
+            ),
           ],
         ));
   }

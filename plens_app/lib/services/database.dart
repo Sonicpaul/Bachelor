@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:plens_app/models/project.dart';
 import 'package:plens_app/models/user.dart';
+import 'package:plens_app/models/work_time.dart';
 
 class DatabaseService {
   final String uid;
@@ -11,6 +12,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('projects');
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
+  final CollectionReference workTimeCollection =
+      FirebaseFirestore.instance.collection('workTime');
 
   Future updateUserData(String name, String email, String phoneNumber) async {
     return await userCollection.doc(uid).set({
@@ -38,6 +41,17 @@ class DatabaseService {
       'customer': customer,
       'contact': contact,
       'employees': employees
+    });
+  }
+
+  Future updateworkTime(String date, double time, String userUid,
+      String projectUid, String message) async {
+    return await workTimeCollection.doc(uid).set({
+      'date': date,
+      'time': time,
+      'userUid': userUid,
+      'projectUid': projectUid,
+      'message': message
     });
   }
 
@@ -71,6 +85,20 @@ class DatabaseService {
     }).toList();
   }
 
+  //workTime List from Snapshot
+  List<WorkTime> _workTimeListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return WorkTime(
+        uid: doc.id ?? '',
+        time: doc.data()['time'] ?? '',
+        date: doc.data()['date'] ?? '',
+        userUid: doc.data()['userUid'] ?? '',
+        projectUid: doc.data()['projectUid'] ?? '',
+        message: doc.data()['message'] ?? '',
+      );
+    }).toList();
+  }
+
   // userdata from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
@@ -98,6 +126,16 @@ class DatabaseService {
     );
   }
 
+  WorkTime _workTimeDataFromSnapshot(DocumentSnapshot snapshot) {
+    return WorkTime(
+        uid: snapshot.id ?? '',
+        date: snapshot.data()['date'] ?? '',
+        time: snapshot.data()['time'] ?? '',
+        userUid: snapshot.data()['userUid'] ?? '',
+        projectUid: snapshot.data()['projectUid'] ?? '',
+        message: snapshot.data()['message'] ?? '');
+  }
+
   // create user Stream
   Stream<List<User>> get users {
     return userCollection.snapshots().map(_userListFromSnapshot);
@@ -108,6 +146,11 @@ class DatabaseService {
     return projectCollection.snapshots().map(_projectListFromSnapshot);
   }
 
+  //create workTime Stream
+  Stream<List<WorkTime>> get workTimes {
+    return workTimeCollection.snapshots().map(_workTimeListFromSnapshot);
+  }
+
   // get user doc stream
   Stream<UserData> get userData {
     return userCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
@@ -116,6 +159,14 @@ class DatabaseService {
   // get project doc stream
   Stream<Project> get projectData {
     return projectCollection.doc(uid).snapshots().map(_projectDataFromSnapshot);
+  }
+
+  // get workTime doc stream
+  Stream<WorkTime> get workTimeData {
+    return workTimeCollection
+        .doc(uid)
+        .snapshots()
+        .map(_workTimeDataFromSnapshot);
   }
 
   // UserList from Database
@@ -130,6 +181,28 @@ class DatabaseService {
               email: doc.data()['email'] ?? '',
               phone: doc.data()['phone'] ?? '',
               workTimeMonthly: doc.data()['workTimeMonthly'] ?? 0,
+            ))
+        .toList();
+  }
+
+  //ProjectList from Database
+  Future<List<Project>> getProjectList() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('projects').get();
+
+    return querySnapshot.docs
+        .map((doc) => Project(
+              uid: doc.id ?? '',
+              name: doc.data()['name'] ?? '',
+              abbreviation: doc.data()['abbreviation'] ?? '',
+              leader: doc.data()['leader'] ?? '',
+              addressStreetAndNumber:
+                  doc.data()['addressStreetAndNumber'] ?? '',
+              addressPostcodeAndCity:
+                  doc.data()['addressPostcodeAndRegion'] ?? '',
+              customer: doc.data()['customer'] ?? '',
+              contact: doc.data()['contact'] ?? '',
+              employees: doc.data()['employees'] ?? [],
             ))
         .toList();
   }

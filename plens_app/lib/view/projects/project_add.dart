@@ -128,7 +128,6 @@ class _AddAProjectState extends State<AddAProject> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final List<User> users = snapshot.data;
-            print(users.length);
             final List<DropdownMenuItem<String>> dropdownItem = users
                 .map((entry) => DropdownMenuItem<String>(
                       child: Text(entry.name),
@@ -144,7 +143,6 @@ class _AddAProjectState extends State<AddAProject> {
                 onChanged: (value) {
                   setState(() {
                     _leader = value;
-                    print(_leader);
                   });
                 });
           } else if (snapshot.hasError) {
