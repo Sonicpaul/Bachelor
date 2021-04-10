@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plens_app/services/auth.dart';
 import 'package:plens_app/view/home/settings_Form.dart';
+import 'package:plens_app/view/monthly/monthly_overview.dart';
 import 'package:plens_app/view/projects/project_Widget.dart';
 import 'package:plens_app/view/time/time_register.dart';
 import 'package:plens_app/view/users/user_widget.dart';
@@ -43,38 +44,77 @@ class Home extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            InkWell(
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  color: Colors.deepPurple,
-                  child: Text('UserList'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: InkWell(
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        color: Colors.deepPurple,
+                        child: Text('UserList'),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserWidget()));
+                      }),
                 ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserWidget()));
-                }),
-            InkWell(
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  color: Colors.red,
-                  child: Text('ProjectList'),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: InkWell(
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        color: Colors.red,
+                        child: Text('ProjectList'),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProjectWidget()));
+                      }),
                 ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProjectWidget()));
-                }),
-            InkWell(
-              child: Container(
-                padding: EdgeInsets.all(20),
-                color: Colors.pink,
-                child: Text('Time Registration'),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TimeRegistration()));
-              },
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: InkWell(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      color: Colors.pink,
+                      child: Text('Time Registration'),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TimeRegistration()));
+                    },
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: InkWell(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      color: Colors.green,
+                      child: Text('Monthly Overview'),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MonthlyOverview()));
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ));

@@ -3,80 +3,80 @@ import 'package:plens_app/models/user.dart' as plens;
 import 'package:plens_app/services/database.dart';
 
 class AuthService {
-
   final firebase.FirebaseAuth _firebaseAuth = firebase.FirebaseAuth.instance;
 
   //create UserObject based on FirebaseUser
-  plens.User _userFromFirebaseUser(firebase.User firebaseUser){
+  plens.User _userFromFirebaseUser(firebase.User firebaseUser) {
     return firebaseUser != null ? plens.User(uid: firebaseUser.uid) : null;
   }
 
   // auth change user Stream
   Stream<plens.User> get user {
-    return _firebaseAuth.authStateChanges()
+    return _firebaseAuth
+        .authStateChanges()
         .map((firebase.User user) => _userFromFirebaseUser(user));
   }
 
   // sign in Anon
-  Future signInAnon() async{
-
-    try{
-
-      firebase.UserCredential userCredential = await firebase.FirebaseAuth.instance.signInAnonymously();
+  Future signInAnon() async {
+    try {
+      firebase.UserCredential userCredential =
+          await firebase.FirebaseAuth.instance.signInAnonymously();
       return _userFromFirebaseUser(userCredential.user);
-
-    } catch(e){
-
+    } catch (e) {
       print(e.toString());
       return null;
-
     }
   }
 
   //sign in with E-mail & pass
-  Future signInWithEmailAndPass(String email, String pass) async{
+  Future signInWithEmailAndPass(String email, String pass) async {
     try {
-      firebase.UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: pass);
+      firebase.UserCredential result = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: pass);
       firebase.User user = result.user;
       return _userFromFirebaseUser(user);
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
   }
 
   //register with E-mail &pass
-  Future registerWithEmailAndPass(String email, String pass) async{
+  Future registerWithEmailAndPass(String email, String pass) async {
     try {
-      firebase.UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: pass);
+      firebase.UserCredential result = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: pass);
       firebase.User user = result.user;
 
       // create a new doc for the user
-      await DatabaseService(uid: user.uid).updateUserData('newUser', user.email, '');
+      await DatabaseService(uid: user.uid)
+          .updateUserData('newUser', user.email, '');
 
       return _userFromFirebaseUser(user);
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
   }
+
   // try changing UserEmail
   Future updateUserEmail(String email) async {
     var currentUser = _firebaseAuth.currentUser;
-    try{
+    try {
       await currentUser.updateEmail(email);
       return 'done';
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
   }
 
   //sign out
-  Future signOut() async{
-    try{
+  Future signOut() async {
+    try {
       return await _firebaseAuth.signOut();
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }

@@ -132,7 +132,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   }
 
   Widget displayEmployees() {
-    List employees = [];
+    List<User> employees = [];
     return FutureBuilder<List<User>>(
         future: DatabaseService().getUserList(),
         builder: (context, snapshot) {

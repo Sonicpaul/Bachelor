@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Widget init = new MediaQuery(
+  final Widget init = new MediaQuery(
     data: new MediaQueryData(),
     child: new MaterialApp(
       home: Scaffold(
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
     ),
   );
 
-  Widget error = new MediaQuery(
+  final Widget error = new MediaQuery(
     data: new MediaQueryData(),
     child: new MaterialApp(
         home: SizedBox(

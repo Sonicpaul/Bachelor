@@ -90,7 +90,7 @@ class DatabaseService {
     return snapshot.docs.map((doc) {
       return WorkTime(
         uid: doc.id ?? '',
-        time: doc.data()['time'] ?? '',
+        time: doc.data()['time'] ?? 0.0,
         date: doc.data()['date'] ?? '',
         userUid: doc.data()['userUid'] ?? '',
         projectUid: doc.data()['projectUid'] ?? '',
@@ -130,7 +130,7 @@ class DatabaseService {
     return WorkTime(
         uid: snapshot.id ?? '',
         date: snapshot.data()['date'] ?? '',
-        time: snapshot.data()['time'] ?? '',
+        time: snapshot.data()['time'] ?? 0.0,
         userUid: snapshot.data()['userUid'] ?? '',
         projectUid: snapshot.data()['projectUid'] ?? '',
         message: snapshot.data()['message'] ?? '');
@@ -203,6 +203,24 @@ class DatabaseService {
               customer: doc.data()['customer'] ?? '',
               contact: doc.data()['contact'] ?? '',
               employees: doc.data()['employees'] ?? [],
+            ))
+        .toList();
+  }
+
+  Future<List<WorkTime>> getWorkTimeFromUser(String userUid) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('workTime')
+        .where('userUid', isEqualTo: userUid)
+        .get();
+
+    return querySnapshot.docs
+        .map((doc) => WorkTime(
+              uid: doc.id ?? '',
+              time: doc.data()['time'] ?? 0.0,
+              date: doc.data()['date'] ?? '',
+              userUid: doc.data()['userUid'] ?? '',
+              projectUid: doc.data()['projectUid'] ?? '',
+              message: doc.data()['message'] ?? '',
             ))
         .toList();
   }
