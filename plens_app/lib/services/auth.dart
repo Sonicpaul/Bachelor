@@ -35,7 +35,11 @@ class AuthService {
       firebase.UserCredential result = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: pass);
       firebase.User user = result.user;
-      return _userFromFirebaseUser(user);
+      if (user.emailVerified) {
+        return _userFromFirebaseUser(user);
+      } else {
+        return null;
+      }
     } catch (e) {
       print(e.toString());
       return null;
@@ -49,9 +53,11 @@ class AuthService {
           .createUserWithEmailAndPassword(email: email, password: pass);
       firebase.User user = result.user;
 
+      user.sendEmailVerification();
+
       // create a new doc for the user
       await DatabaseService(uid: user.uid)
-          .updateUserData('newUser', user.email, '');
+          .updateUserData('Username', user.email, '');
 
       return _userFromFirebaseUser(user);
     } catch (e) {
@@ -65,6 +71,17 @@ class AuthService {
     var currentUser = _firebaseAuth.currentUser;
     try {
       await currentUser.updateEmail(email);
+      return 'done';
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //Change User Password with Email
+  Future changePass(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
       return 'done';
     } catch (e) {
       print(e.toString());

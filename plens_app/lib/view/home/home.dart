@@ -38,8 +38,8 @@ class Home extends StatelessWidget {
             ),
             ElevatedButton.icon(
                 onPressed: () => _showSettingsPanel(),
-                icon: Icon(Icons.settings),
-                label: Text('settings'))
+                icon: Icon(Icons.account_circle_rounded),
+                label: Text('Profile'))
           ],
         ),
         body: Column(
@@ -53,7 +53,7 @@ class Home extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(20),
                         color: Colors.deepPurple,
-                        child: Text('UserList'),
+                        child: Text('Contacts'),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -68,7 +68,7 @@ class Home extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(20),
                         color: Colors.red,
-                        child: Text('ProjectList'),
+                        child: Text('Projects'),
                       ),
                       onTap: () {
                         Navigator.push(

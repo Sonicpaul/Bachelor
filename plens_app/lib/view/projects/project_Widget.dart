@@ -40,7 +40,7 @@ class ProjectWidget extends StatelessWidget {
             elevation: 1.0,
             actions: <Widget>[
               ElevatedButton.icon(
-                  icon: Icon(Icons.person),
+                  icon: Icon(Icons.folder),
                   label: Text('Add a project'),
                   onPressed: () => _addANewProject()),
             ],
