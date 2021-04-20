@@ -13,6 +13,8 @@ class AddAProject extends StatefulWidget {
 
 class _AddAProjectState extends State<AddAProject> {
   final _formKey = GlobalKey<FormState>();
+  List<int> selectedItems = [];
+  bool save = false;
 
   var uuid = Uuid();
 
@@ -102,7 +104,7 @@ class _AddAProjectState extends State<AddAProject> {
                 ElevatedButton(
                   child: Text('Save'),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState.validate() && save) {
                       await DatabaseService(uid: uuid.v1()).updateProjectData(
                           _name,
                           _abbreviation,
@@ -167,14 +169,19 @@ class _AddAProjectState extends State<AddAProject> {
                 .toList();
             return SearchableDropdown.multiple(
               items: dropdownItem,
+              selectedItems: selectedItems,
               hint: 'Select the employees you want to assign to the Project.',
               searchHint: '',
               doneButton: "Apply",
-              closeButton: SizedBox.shrink(),
+              closeButton: (SizedBox.shrink()),
               onChanged: (value) {
+                setState(() {
+                  selectedItems = value;
+                });
                 for (int i in value) {
                   _employees.add(users[i].uid);
                 }
+                save = true;
               },
               dialogBox: false,
               isExpanded: true,

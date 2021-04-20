@@ -17,6 +17,8 @@ class EditProject extends StatefulWidget {
 
 class _EditProjectState extends State<EditProject> {
   final _formKey = GlobalKey<FormState>();
+  List<int> selectedItems = [];
+  bool save = false;
 
   static String uid;
   static String _currentName;
@@ -30,9 +32,7 @@ class _EditProjectState extends State<EditProject> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      uid = widget.project.uid;
-    });
+    uid = widget.project.uid;
 
     return ListView(
       padding: EdgeInsets.all(10),
@@ -110,7 +110,7 @@ class _EditProjectState extends State<EditProject> {
                 ElevatedButton(
                   child: Text('Update'),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState.validate() && save) {
                       await DatabaseService(uid: uid).updateProjectData(
                           _currentName ?? widget.project.name,
                           _currentAbbreviation ?? widget.project.abbreviation,
@@ -180,14 +180,19 @@ class _EditProjectState extends State<EditProject> {
                 .toList();
             return SearchableDropdown.multiple(
               items: dropdownItem,
+              selectedItems: selectedItems,
               hint: 'Select the employees you want to assign to the Project.',
               searchHint: '',
               doneButton: "Apply",
               closeButton: SizedBox.shrink(),
               onChanged: (value) {
+                setState(() {
+                  selectedItems = value;
+                });
                 for (int i in value) {
                   _currentEmployees.add(users[i].uid);
                 }
+                save = true;
               },
               dialogBox: false,
               isExpanded: true,

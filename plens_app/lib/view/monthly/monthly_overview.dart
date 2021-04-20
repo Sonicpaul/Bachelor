@@ -13,6 +13,7 @@ class MonthlyOverview extends StatefulWidget {
 
 class _MOnthlyOverviewState extends State<MonthlyOverview> {
   DateTime selectedDate = DateTime.now();
+  double totalWorkTime = 0.0;
 
   Future<void> _selectMonth(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -23,6 +24,7 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        totalWorkTime = 0;
       });
   }
 
@@ -77,25 +79,35 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
               monthAndYearDatabase = workTimeMonthly.date.substring(3);
               if (monthAndYear == monthAndYearDatabase) {
                 workTimes.add(workTimeMonthly);
+                totalWorkTime += workTimeMonthly.time;
               }
             }
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: workTimes.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Card(
-                    margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
-                    child: ListTile(
-                      title: Text(workTimes[index].date +
-                          ' - ' +
-                          workTimes[index].time.toString()),
-                      subtitle: Text(workTimes[index].message),
-                    ),
-                  ),
-                );
-              },
+            return Column(
+              children: <Widget>[
+                Text(
+                  'Total number of hours you worked this month: ' +
+                      totalWorkTime.toString(),
+                  style: TextStyle(fontSize: 20),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: workTimes.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Card(
+                        margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
+                        child: ListTile(
+                          title: Text(workTimes[index].date +
+                              ' - ' +
+                              workTimes[index].time.toString()),
+                          subtitle: Text(workTimes[index].message),
+                        ),
+                      ),
+                    );
+                  },
+                )
+              ],
             );
           } else if (snapshot.hasError) {
             return Text(snapshot.error);

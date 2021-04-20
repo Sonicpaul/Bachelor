@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:plens_app/models/user.dart' as plens;
+import 'package:plens_app/models/user.dart';
 import 'package:plens_app/services/database.dart';
 
 class AuthService {
@@ -15,6 +16,11 @@ class AuthService {
     return _firebaseAuth
         .authStateChanges()
         .map((firebase.User user) => _userFromFirebaseUser(user));
+  }
+
+  // get LoggedInUser
+  User get loggedInUser {
+    return _userFromFirebaseUser(_firebaseAuth.currentUser);
   }
 
   // sign in Anon
@@ -35,11 +41,8 @@ class AuthService {
       firebase.UserCredential result = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: pass);
       firebase.User user = result.user;
-      if (user.emailVerified) {
-        return _userFromFirebaseUser(user);
-      } else {
-        return null;
-      }
+
+      return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
       return null;

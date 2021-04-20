@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:plens_app/models/project.dart';
 import 'package:plens_app/services/database.dart';
-import 'package:plens_app/view/home/home.dart';
 import 'package:plens_app/view/projects/project_add.dart';
 import 'package:plens_app/view/projects/project_list.dart';
+import 'package:plens_app/view/wrapper.dart';
 import 'package:provider/provider.dart';
 
 class ProjectWidget extends StatelessWidget {
@@ -30,11 +30,11 @@ class ProjectWidget extends StatelessWidget {
           appBar: AppBar(
             leading: IconButton(
               icon: Icon(
-                Icons.arrow_back,
+                Icons.house,
                 color: Colors.white,
               ),
               onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home())),
+                  context, MaterialPageRoute(builder: (context) => Wrapper())),
             ),
             title: Text('Projects'),
             elevation: 1.0,

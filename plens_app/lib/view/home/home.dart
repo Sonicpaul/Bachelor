@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plens_app/services/auth.dart';
 import 'package:plens_app/view/home/settings_Form.dart';
+import 'package:plens_app/view/login/sign_in_view.dart';
 import 'package:plens_app/view/monthly/monthly_overview.dart';
 import 'package:plens_app/view/projects/project_Widget.dart';
 import 'package:plens_app/view/time/time_register.dart';
@@ -8,7 +9,6 @@ import 'package:plens_app/view/users/user_widget.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
-
   @override
   Widget build(BuildContext context) {
     void _showSettingsPanel() {
@@ -47,73 +47,47 @@ class Home extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: InkWell(
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        color: Colors.deepPurple,
-                        child: Text('Contacts'),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UserWidget()));
-                      }),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: InkWell(
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        color: Colors.red,
-                        child: Text('Projects'),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProjectWidget()));
-                      }),
-                ),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserWidget()));
+                    },
+                    icon: Icon(Icons.phone),
+                    label: Text('Contacts')),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProjectWidget()));
+                    },
+                    icon: Icon(Icons.folder_open),
+                    label: Text('Projects')),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: InkWell(
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      color: Colors.pink,
-                      child: Text('Time Registration'),
-                    ),
-                    onTap: () {
+                ElevatedButton.icon(
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => TimeRegistration()));
                     },
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: InkWell(
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      color: Colors.green,
-                      child: Text('Monthly Overview'),
-                    ),
-                    onTap: () {
+                    icon: Icon(Icons.schedule),
+                    label: Text('Time Registration')),
+                ElevatedButton.icon(
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => MonthlyOverview()));
                     },
-                  ),
-                ),
+                    icon: Icon(Icons.calendar_today),
+                    label: Text('Monthly Overview')),
               ],
             ),
           ],

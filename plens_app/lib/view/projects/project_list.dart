@@ -11,15 +11,15 @@ class ProjectList extends StatefulWidget {
 class _ProjectListState extends State<ProjectList> {
   @override
   Widget build(BuildContext context) {
-
     //fallback for errors
     final projects = Provider.of<List<Project>>(context) ?? [];
 
     return ListView.builder(
-      itemCount: projects.length,
-      itemBuilder: (context, index){
-        return ProjectTile(project: projects[index],);
-      }
-    );
+        itemCount: projects.length,
+        itemBuilder: (context, index) {
+          return ProjectTile(
+            project: projects[index],
+          );
+        });
   }
 }

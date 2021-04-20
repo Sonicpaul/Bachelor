@@ -1,30 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:plens_app/models/project.dart';
 import 'package:plens_app/models/user.dart';
+import 'package:plens_app/services/auth.dart';
 import 'package:plens_app/services/database.dart';
 import 'package:plens_app/shared/loading.dart';
+import 'package:plens_app/view/projects/project_Widget.dart';
 import 'package:plens_app/view/projects/project_edit.dart';
 import 'package:plens_app/view/users/user_tile.dart';
 
 class ProjectDetails extends StatefulWidget {
+  final user = AuthService().loggedInUser;
   final Project project;
   ProjectDetails({this.project});
-
   @override
   _ProjectDetailsState createState() => _ProjectDetailsState();
 }
 
 class _ProjectDetailsState extends State<ProjectDetails> {
+  String error = '';
+  double size = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.project.abbreviation),
           actions: <Widget>[
+            ElevatedButton.icon(
+                icon: Icon(Icons.delete),
+                label: Text('Delete'),
+                onPressed: () {
+                  for (String employee in widget.project.employees) {
+                    if (widget.user.uid == employee) {
+                      DatabaseService().deleteProject(widget.project.uid);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (conext) => ProjectWidget()));
+                    } else if (widget.user.uid == widget.project.leader) {
+                      DatabaseService().deleteProject(widget.project.uid);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (conext) => ProjectWidget()));
+                    } else {
+                      setState(() {
+                        error = 'You are not allowed to delete this project';
+                        size = 20;
+                      });
+                    }
+                  }
+                }),
             ElevatedButton(
                 child: Text('Edit'),
                 onPressed: () {
-                  _showEditProject();
+                  for (String employee in widget.project.employees) {
+                    if (widget.user.uid == employee) {
+                      _showEditProject();
+                    } else if (widget.user.uid == widget.project.leader) {
+                      _showEditProject();
+                    } else {
+                      setState(() {
+                        error = 'You are not allowed to edit this project';
+                        size = 20;
+                      });
+                    }
+                  }
                 })
           ],
         ),
@@ -32,6 +72,10 @@ class _ProjectDetailsState extends State<ProjectDetails> {
           children: <Widget>[
             Column(
               children: <Widget>[
+                Text(
+                  error,
+                  style: TextStyle(color: Colors.red, fontSize: size),
+                ),
                 Container(
                   color: Colors.blue[900],
                   height: 50,

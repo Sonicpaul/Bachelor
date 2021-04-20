@@ -224,4 +224,8 @@ class DatabaseService {
             ))
         .toList();
   }
+
+  void deleteProject(String uid) {
+    projectCollection.doc(uid).delete();
+  }
 }
