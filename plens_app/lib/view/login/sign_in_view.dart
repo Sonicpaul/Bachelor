@@ -12,6 +12,7 @@ class SignIn extends StatefulWidget {
   _SignInState createState() => _SignInState();
 }
 
+// this is the main widget for the sign in Page
 class _SignInState extends State<SignIn> {
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();

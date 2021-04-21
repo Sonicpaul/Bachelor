@@ -3,10 +3,11 @@ import 'package:plens_app/models/project.dart';
 import 'package:plens_app/view/projects/project_details.dart';
 
 class ProjectTile extends StatelessWidget {
+  // setting the project object given by a previous Widget
   final Project project;
-
   ProjectTile({this.project});
 
+  // this Widgets builds a Card filled with the information given by the project object
   @override
   Widget build(BuildContext context) {
     return Padding(

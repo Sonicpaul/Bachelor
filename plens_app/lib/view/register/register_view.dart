@@ -22,6 +22,8 @@ class _RegisterState extends State<Register> {
   String pass = '';
   String error = '';
 
+  // building the main Widget
+  // using a form to evaluate the users input
   @override
   Widget build(BuildContext context) {
     return loading

@@ -6,6 +6,7 @@ class Loading extends StatefulWidget {
   _LoadingState createState() => _LoadingState();
 }
 
+// this widget is a loading screen to show the user if something is still loading
 class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {

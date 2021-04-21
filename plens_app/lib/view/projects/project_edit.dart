@@ -15,11 +15,13 @@ class EditProject extends StatefulWidget {
   _EditProjectState createState() => _EditProjectState();
 }
 
+// this Widget is the main widget to edit an axisting project
 class _EditProjectState extends State<EditProject> {
   final _formKey = GlobalKey<FormState>();
   List<int> selectedItems = [];
   bool save = false;
 
+  // form Values
   static String uid;
   static String _currentName;
   static String _currentAbbreviation;
@@ -30,6 +32,7 @@ class _EditProjectState extends State<EditProject> {
   static String _currentContact;
   List<String> _currentEmployees = <String>[];
 
+  // the main Widget
   @override
   Widget build(BuildContext context) {
     uid = widget.project.uid;
@@ -135,6 +138,7 @@ class _EditProjectState extends State<EditProject> {
     );
   }
 
+  // this Widget provides a Dropdownmenu with a list of all users to select a new leader for the project
   Widget newLeader() {
     return FutureBuilder<List<User>>(
         future: DatabaseService().getUserList(),
@@ -166,6 +170,8 @@ class _EditProjectState extends State<EditProject> {
         });
   }
 
+  // this Widget provides a Dropdownmenu with a list of all users.
+  // its possible to select multiple employees
   Widget newEmployees() {
     return FutureBuilder<List<User>>(
         future: DatabaseService().getUserList(),

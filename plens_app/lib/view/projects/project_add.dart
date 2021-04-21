@@ -30,6 +30,8 @@ class _AddAProjectState extends State<AddAProject> {
 
   String error = '';
 
+  // this widget is used to create a new project
+  // form is used to evaluate the input of the user
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -124,6 +126,7 @@ class _AddAProjectState extends State<AddAProject> {
     );
   }
 
+  // this widget provides a list of users to select a leader for this project
   Widget leaderSelection() {
     return FutureBuilder<List<User>>(
         future: DatabaseService().getUserList(),
@@ -155,6 +158,8 @@ class _AddAProjectState extends State<AddAProject> {
         });
   }
 
+  // this widget provides a list of all users
+  // its possible to select multiple users as employees
   Widget employeeSelection() {
     return FutureBuilder<List<User>>(
         future: DatabaseService().getUserList(),

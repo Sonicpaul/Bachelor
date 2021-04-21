@@ -11,10 +11,12 @@ class MonthlyOverview extends StatefulWidget {
   _MOnthlyOverviewState createState() => _MOnthlyOverviewState();
 }
 
+// this widget is the Main widget for the Monthly overview
 class _MOnthlyOverviewState extends State<MonthlyOverview> {
   DateTime selectedDate = DateTime.now();
   double totalWorkTime = 0.0;
 
+  // building a Datepicker to sleect the month the user wants to know his worktime
   Future<void> _selectMonth(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -28,6 +30,7 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
       });
   }
 
+  // the main widget is build here
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -62,6 +65,8 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
     );
   }
 
+  // this widget builds a list of all worktime objects in the database
+  // it also checks for the month the user selcted
   Widget showMonthlyOverview(String userUid) {
     String monthAndYear;
     List<WorkTime> workTimes;

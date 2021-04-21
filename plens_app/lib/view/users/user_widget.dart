@@ -9,6 +9,8 @@ class UserWidget extends StatefulWidget {
   _UserWidgetState createState() => _UserWidgetState();
 }
 
+// this Widget builds the base of the Contacts Page
+// getting all Users from the database and provide them to the UserList Widget
 class _UserWidgetState extends State<UserWidget> {
   @override
   Widget build(BuildContext context) {

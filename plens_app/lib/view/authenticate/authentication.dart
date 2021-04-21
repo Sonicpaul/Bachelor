@@ -7,7 +7,9 @@ class Authenticate extends StatefulWidget {
   _AuthenticateState createState() => _AuthenticateState();
 }
 
-class _AuthenticateState extends State<Authenticate> with SingleTickerProviderStateMixin {
+// this class is used to switch between the Register and signin Page
+class _AuthenticateState extends State<Authenticate>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
   bool showSignIn = true;
@@ -26,16 +28,15 @@ class _AuthenticateState extends State<Authenticate> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    if (showSignIn){
+    if (showSignIn) {
       return SignIn(toggleView: toggleView);
-    }else{
+    } else {
       return Register(toggleView: toggleView);
     }
   }
 
   // toggle the Flag
-  void toggleView(){
+  void toggleView() {
     setState(() => showSignIn = !showSignIn);
   }
-
 }

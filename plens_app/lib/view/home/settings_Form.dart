@@ -11,6 +11,7 @@ class SettingsForm extends StatefulWidget {
   _SettingsFormState createState() => _SettingsFormState();
 }
 
+// this widget allows the user to change his name/phone and Email adress
 class _SettingsFormState extends State<SettingsForm> {
   final _formKey = GlobalKey<FormState>();
   final AuthService _authService = AuthService();

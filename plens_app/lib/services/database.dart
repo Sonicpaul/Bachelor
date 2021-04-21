@@ -3,6 +3,8 @@ import 'package:plens_app/models/project.dart';
 import 'package:plens_app/models/user.dart';
 import 'package:plens_app/models/work_time.dart';
 
+// this class is for the Database only!
+// everythin needed to do with the databse is need to be here
 class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
@@ -15,6 +17,7 @@ class DatabaseService {
   final CollectionReference workTimeCollection =
       FirebaseFirestore.instance.collection('workTime');
 
+  // Updates the data of an user
   Future updateUserData(String name, String email, String phoneNumber) async {
     return await userCollection.doc(uid).set({
       'name': name,
@@ -23,6 +26,7 @@ class DatabaseService {
     });
   }
 
+  // updates the data of an project
   Future updateProjectData(
       String name,
       String abbreviation,
@@ -44,6 +48,7 @@ class DatabaseService {
     });
   }
 
+  // updates the data of the worktime
   Future updateworkTime(String date, double time, String userUid,
       String projectUid, String message) async {
     return await workTimeCollection.doc(uid).set({
@@ -126,6 +131,7 @@ class DatabaseService {
     );
   }
 
+  // Worktime data from Snapshot
   WorkTime _workTimeDataFromSnapshot(DocumentSnapshot snapshot) {
     return WorkTime(
         uid: snapshot.id ?? '',
@@ -207,6 +213,7 @@ class DatabaseService {
         .toList();
   }
 
+  // worktimelist from Dataabse
   Future<List<WorkTime>> getWorkTimeFromUser(String userUid) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('workTime')
@@ -225,6 +232,7 @@ class DatabaseService {
         .toList();
   }
 
+  // deletes an project by its uid
   void deleteProject(String uid) {
     projectCollection.doc(uid).delete();
   }

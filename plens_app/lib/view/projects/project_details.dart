@@ -16,6 +16,7 @@ class ProjectDetails extends StatefulWidget {
   _ProjectDetailsState createState() => _ProjectDetailsState();
 }
 
+// this widget is used to display all information stored in a project object
 class _ProjectDetailsState extends State<ProjectDetails> {
   String error = '';
   double size = 0.0;
@@ -160,6 +161,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
         ));
   }
 
+  // an function that makes it possible to edit this specific project
   void _showEditProject() {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -175,6 +177,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
         });
   }
 
+  // this widget displays a list of all employees working on this project
   Widget displayEmployees() {
     List<User> employees = [];
     return FutureBuilder<List<User>>(
@@ -206,6 +209,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
         });
   }
 
+  // this widget is used to dispaly the leader of this project
   Widget displayLeader() {
     return FutureBuilder<List<User>>(
         future: DatabaseService().getUserList(),

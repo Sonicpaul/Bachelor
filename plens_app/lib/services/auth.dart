@@ -3,6 +3,7 @@ import 'package:plens_app/models/user.dart' as plens;
 import 'package:plens_app/models/user.dart';
 import 'package:plens_app/services/database.dart';
 
+// this class is used for authentication only!
 class AuthService {
   final firebase.FirebaseAuth _firebaseAuth = firebase.FirebaseAuth.instance;
 

@@ -6,6 +6,8 @@ import 'package:plens_app/view/projects/project_list.dart';
 import 'package:plens_app/view/wrapper.dart';
 import 'package:provider/provider.dart';
 
+// this Widget is the main Widget for the Project Page
+// this Widget provides the next Widgets with information from the database
 class ProjectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

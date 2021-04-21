@@ -8,6 +8,7 @@ class ProjectList extends StatefulWidget {
   _ProjectListState createState() => _ProjectListState();
 }
 
+// this widget creates a list of projects
 class _ProjectListState extends State<ProjectList> {
   @override
   Widget build(BuildContext context) {

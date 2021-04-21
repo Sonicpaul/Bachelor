@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plens_app/services/auth.dart';
 import 'package:plens_app/view/home/settings_Form.dart';
-import 'package:plens_app/view/login/sign_in_view.dart';
 import 'package:plens_app/view/monthly/monthly_overview.dart';
 import 'package:plens_app/view/projects/project_Widget.dart';
 import 'package:plens_app/view/time/time_register.dart';
 import 'package:plens_app/view/users/user_widget.dart';
 
+// this widget is the Homepage of this app
+// it provides the user with the main Features of this app
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   @override

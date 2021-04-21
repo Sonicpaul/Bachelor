@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:plens_app/models/user.dart';
 
 class UserTile extends StatelessWidget {
+  // setting the User Object given by another Widget
   final User user;
   UserTile({this.user});
 
+  // creating a Card with the information given by the user object
   @override
   Widget build(BuildContext context) {
     return Padding(

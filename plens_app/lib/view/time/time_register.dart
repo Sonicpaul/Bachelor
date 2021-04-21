@@ -16,6 +16,7 @@ class TimeRegistration extends StatefulWidget {
   _TimeRegistrationState createState() => _TimeRegistrationState();
 }
 
+// creating the Time Registration widget
 class _TimeRegistrationState extends State<TimeRegistration> {
   final _formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
@@ -27,6 +28,7 @@ class _TimeRegistrationState extends State<TimeRegistration> {
   String _message;
   var uuid = Uuid();
 
+  // a datepicker to set the date the user wants to set his worktime
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -39,6 +41,8 @@ class _TimeRegistrationState extends State<TimeRegistration> {
       });
   }
 
+  // the main Widget builder
+  // setting a form the evaluate the values from the user
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -114,6 +118,7 @@ class _TimeRegistrationState extends State<TimeRegistration> {
     );
   }
 
+  // building a Dropdownmenu with a list of all possible projects
   Widget projectSelection() {
     return FutureBuilder<List<Project>>(
         future: DatabaseService().getProjectList(),

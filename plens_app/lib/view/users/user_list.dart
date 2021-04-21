@@ -8,10 +8,10 @@ class UserList extends StatefulWidget {
   _UserListState createState() => _UserListState();
 }
 
+// this Widgets builds a list of users given by the users from the databse
 class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
-
     // fallback for errors
     final users = Provider.of<List<User>>(context) ?? [];
 
