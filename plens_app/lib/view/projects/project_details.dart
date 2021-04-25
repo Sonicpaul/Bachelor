@@ -20,6 +20,7 @@ class ProjectDetails extends StatefulWidget {
 class _ProjectDetailsState extends State<ProjectDetails> {
   String error = '';
   double size = 0.0;
+  bool isLeader = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,23 +33,19 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                 onPressed: () {
                   for (String employee in widget.project.employees) {
                     if (widget.user.uid == employee) {
-                      DatabaseService().deleteProject(widget.project.uid);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (conext) => ProjectWidget()));
-                    } else if (widget.user.uid == widget.project.leader) {
-                      DatabaseService().deleteProject(widget.project.uid);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (conext) => ProjectWidget()));
-                    } else {
-                      setState(() {
-                        error = 'You are not allowed to delete this project';
-                        size = 20;
-                      });
+                      showAlertDialog(context);
+                      isLeader = true;
                     }
+                  }
+                  if (widget.user.uid == widget.project.leader) {
+                    if (!isLeader) {
+                      showAlertDialog(context);
+                    }
+                  } else {
+                    setState(() {
+                      error = 'You are not allowed to delete this project';
+                      size = 20;
+                    });
                   }
                 }),
             ElevatedButton(
@@ -235,5 +232,41 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             return Loading();
           }
         });
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = ElevatedButton(
+      child: Text("No"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = ElevatedButton(
+      child: Text("Yes"),
+      onPressed: () {
+        DatabaseService().deleteProject(widget.project.uid);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (conext) => ProjectWidget()));
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Stop!"),
+      content: Text("Do you really want to delete this project?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
