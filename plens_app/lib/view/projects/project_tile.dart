@@ -15,8 +15,14 @@ class ProjectTile extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
         child: ListTile(
-          title: Text(project.abbreviation + ' - ' + project.name),
-          subtitle: Text(project.customer + ' - ' + project.contact),
+          title: Text(
+            project.abbreviation + ' - ' + project.name,
+            style: TextStyle(fontSize: 20),
+          ),
+          subtitle: Text(
+            project.customer + ' - ' + project.contact,
+            style: TextStyle(fontSize: 15),
+          ),
           onTap: () {
             Navigator.push(
                 context,

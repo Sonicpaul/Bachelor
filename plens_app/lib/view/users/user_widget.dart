@@ -4,6 +4,8 @@ import 'package:plens_app/view/users/user_list.dart';
 import 'package:provider/provider.dart';
 import 'package:plens_app/models/user.dart';
 
+import '../wrapper.dart';
+
 class UserWidget extends StatefulWidget {
   @override
   _UserWidgetState createState() => _UserWidgetState();
@@ -20,6 +22,15 @@ class _UserWidgetState extends State<UserWidget> {
         child: Scaffold(
           backgroundColor: Colors.blue[100],
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.house,
+                size: 30,
+                color: Colors.white,
+              ),
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Wrapper())),
+            ),
             title: Text('Contacts'),
             elevation: 1.0,
           ),

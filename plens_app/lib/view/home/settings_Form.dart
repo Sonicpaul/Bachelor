@@ -78,7 +78,6 @@ class _SettingsFormState extends State<SettingsForm> {
                           setState(() => error =
                               'Check the Email address please or try to log out and sign in again.');
                         } else {
-                          print(result);
                           await DatabaseService(uid: user.uid).updateUserData(
                               _currentName ?? userData.name,
                               _currentEmail ?? userData.email,

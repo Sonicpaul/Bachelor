@@ -44,51 +44,146 @@ class Home extends StatelessWidget {
           ],
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserWidget()));
-                    },
-                    icon: Icon(Icons.phone),
-                    label: Text('Contacts')),
-                ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProjectWidget()));
-                    },
-                    icon: Icon(Icons.folder_open),
-                    label: Text('Projects')),
+                Container(
+                  height: 150,
+                  width: 150,
+                  child: Material(
+                    color: Colors.blue[500],
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserWidget()));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.phone,
+                            size: 75,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Contacts',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 150,
+                  width: 150,
+                  child: Material(
+                    color: Colors.blue[500],
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProjectWidget()));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.folder_open,
+                            size: 75,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Projects',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TimeRegistration()));
-                    },
-                    icon: Icon(Icons.schedule),
-                    label: Text('Time Registration')),
-                ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MonthlyOverview()));
-                    },
-                    icon: Icon(Icons.calendar_today),
-                    label: Text('Monthly Overview')),
+                Container(
+                  height: 150,
+                  width: 150,
+                  child: Material(
+                    color: Colors.blue[500],
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TimeRegistration()));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.schedule,
+                            size: 75,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Time',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          Text(
+                            'registration',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 150,
+                  width: 150,
+                  child: Material(
+                    color: Colors.blue[500],
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MonthlyOverview()));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.calendar_today,
+                            size: 75,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Monthly',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            'overview',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

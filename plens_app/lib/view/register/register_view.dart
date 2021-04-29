@@ -20,6 +20,7 @@ class _RegisterState extends State<Register> {
   // store E-mail and PW
   String email = '';
   String pass = '';
+  String passSecond = '';
   String error = '';
 
   // building the main Widget
@@ -34,26 +35,18 @@ class _RegisterState extends State<Register> {
               backgroundColor: Colors.blue[400],
               elevation: 0.0,
               title: Text('Register'),
-              actions: <Widget>[
-                ElevatedButton.icon(
-                  onPressed: () {
-                    widget.toggleView();
-                  },
-                  icon: Icon(Icons.person),
-                  label: Text('SignIn'),
-                )
-              ],
             ),
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
               child: Form(
                 key: _formKey,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: 20.0),
                     TextFormField(
-                        decoration:
-                            textInputDecoration.copyWith(hintText: 'Email'),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: 'Enter email'),
                         validator: (val) =>
                             val.isEmpty ? 'Enter an E-mail' : null,
                         onChanged: (val) {
@@ -61,8 +54,8 @@ class _RegisterState extends State<Register> {
                         }),
                     SizedBox(height: 20.0),
                     TextFormField(
-                        decoration:
-                            textInputDecoration.copyWith(hintText: 'Password'),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: 'Enter password'),
                         validator: (val) => val.length < 6
                             ? 'Enter a password with 6 or more characters'
                             : null,
@@ -71,25 +64,66 @@ class _RegisterState extends State<Register> {
                           setState(() => pass = val);
                         }),
                     SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          setState(() {
-                            loading = true;
-                          });
-                          dynamic result = await _authService
-                              .registerWithEmailAndPass(email, pass);
-                          if (result == null) {
-                            setState(
-                                () => error = 'please enter a valid Email');
-                            loading = false;
-                          }
-                        }
-                      },
-                      child: Text(
-                        'Register',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    TextFormField(
+                        decoration: textInputDecoration.copyWith(
+                            hintText: 'Confirm password'),
+                        validator: (val) => val.length < 6
+                            ? 'Enter a password with 6 or more characters'
+                            : null,
+                        obscureText: true,
+                        onChanged: (val) {
+                          setState(() => passSecond = val);
+                        }),
+                    SizedBox(height: 20.0),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
+                              if (pass == passSecond) {
+                                setState(() {
+                                  loading = true;
+                                });
+                              } else {
+                                setState(() {
+                                  error = 'passwords are not matching';
+                                });
+                              }
+
+                              dynamic result = await _authService
+                                  .registerWithEmailAndPass(email, pass);
+                              if (result == null) {
+                                setState(
+                                    () => error = 'please enter a valid Email');
+                                loading = false;
+                              }
+                            }
+                          },
+                          child: Text(
+                            'Register',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('Already have an account?'),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                widget.toggleView();
+                              },
+                              child: Text('Sign in'),
+                            )
+                          ],
+                        )
+                      ],
                     ),
                     SizedBox(
                       height: 20,

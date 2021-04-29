@@ -14,9 +14,14 @@ class UserTile extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
         child: ListTile(
-          title: Text(user.name),
+          title: Text(
+            user.name,
+            style: TextStyle(fontSize: 20),
+          ),
           subtitle: Text(
-              'Phone number: ' + user.phone + '\n' + 'E-mail: ' + user.email),
+            'Phone: ' + user.phone + '\n' + 'email: ' + user.email,
+            style: TextStyle(fontSize: 15),
+          ),
         ),
       ),
     );

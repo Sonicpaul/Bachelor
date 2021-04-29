@@ -34,6 +34,7 @@ class ProjectWidget extends StatelessWidget {
               icon: Icon(
                 Icons.house,
                 color: Colors.white,
+                size: 30,
               ),
               onPressed: () => Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Wrapper())),

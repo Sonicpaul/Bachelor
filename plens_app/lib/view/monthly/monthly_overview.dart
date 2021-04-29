@@ -6,6 +6,8 @@ import 'package:plens_app/services/database.dart';
 import 'package:plens_app/shared/loading.dart';
 import 'package:provider/provider.dart';
 
+import '../wrapper.dart';
+
 class MonthlyOverview extends StatefulWidget {
   @override
   _MOnthlyOverviewState createState() => _MOnthlyOverviewState();
@@ -37,6 +39,15 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.house,
+            color: Colors.white,
+            size: 30,
+          ),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Wrapper())),
+        ),
         title: Text('Monthly Overview'),
       ),
       body: ListView(
@@ -90,8 +101,7 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
             return Column(
               children: <Widget>[
                 Text(
-                  'Total number of hours you worked this month: ' +
-                      totalWorkTime.toString(),
+                  'Total worktime this month: ' + totalWorkTime.toString(),
                   style: TextStyle(fontSize: 20),
                 ),
                 ListView.builder(
@@ -103,10 +113,16 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
                       child: Card(
                         margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
                         child: ListTile(
-                          title: Text(workTimes[index].date +
-                              ' - ' +
-                              workTimes[index].time.toString()),
-                          subtitle: Text(workTimes[index].message),
+                          title: Text(
+                            workTimes[index].date +
+                                ' - ' +
+                                workTimes[index].time.toString(),
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          subtitle: Text(
+                            workTimes[index].message,
+                            style: TextStyle(fontSize: 15),
+                          ),
                         ),
                       ),
                     );

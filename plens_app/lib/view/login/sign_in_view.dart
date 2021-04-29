@@ -80,26 +80,18 @@ class _SignInState extends State<SignIn> {
               backgroundColor: Colors.blue[400],
               elevation: 0.0,
               title: Text('Sign in'),
-              actions: <Widget>[
-                ElevatedButton.icon(
-                  onPressed: () {
-                    widget.toggleView();
-                  },
-                  icon: Icon(Icons.person),
-                  label: Text('Register'),
-                )
-              ],
             ),
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
               child: Form(
                 key: _formKey,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: 20.0),
                     TextFormField(
-                        decoration:
-                            textInputDecoration.copyWith(hintText: 'Email'),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: 'Enter email'),
                         validator: (val) =>
                             val.isEmpty ? 'Enter an E-mail' : null,
                         onChanged: (val) {
@@ -107,8 +99,8 @@ class _SignInState extends State<SignIn> {
                         }),
                     SizedBox(height: 20.0),
                     TextFormField(
-                        decoration:
-                            textInputDecoration.copyWith(hintText: 'Password'),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: 'Enter password'),
                         validator: (val) => val.length < 6
                             ? 'Enter a password with 6 or more characters'
                             : null,
@@ -117,25 +109,48 @@ class _SignInState extends State<SignIn> {
                           setState(() => pass = val);
                         }),
                     SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          setState(() => loading = true);
-                          dynamic result = await _authService
-                              .signInWithEmailAndPass(email, pass);
-                          if (result == null) {
-                            setState(() {
-                              error =
-                                  'Could not Sign in with this email and password.';
-                              loading = false;
-                            });
-                          }
-                        }
-                      },
-                      child: Text(
-                        'Sign in',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
+                              setState(() => loading = true);
+                              dynamic result = await _authService
+                                  .signInWithEmailAndPass(email, pass);
+                              if (result == null) {
+                                setState(() {
+                                  error =
+                                      'Could not Sign in with this email and password.';
+                                  loading = false;
+                                });
+                              }
+                            }
+                          },
+                          child: Text(
+                            'Sign in',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Don't have a account?"),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                widget.toggleView();
+                              },
+                              child: Text('Register'),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                     SizedBox(
                       height: 20,
@@ -148,7 +163,7 @@ class _SignInState extends State<SignIn> {
                       height: 20,
                     ),
                     ElevatedButton(
-                        child: Text('forgot password?'),
+                        child: Text('Forgot password?'),
                         onPressed: () async {
                           showPassResetDialog();
                         }),

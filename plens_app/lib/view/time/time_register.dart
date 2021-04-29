@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:uuid/uuid.dart';
 
+import '../wrapper.dart';
+
 class TimeRegistration extends StatefulWidget {
   @override
   _TimeRegistrationState createState() => _TimeRegistrationState();
@@ -49,6 +51,15 @@ class _TimeRegistrationState extends State<TimeRegistration> {
     _userUid = user.uid;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.house,
+            color: Colors.white,
+            size: 30,
+          ),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Wrapper())),
+        ),
         title: Text('Time Registration'),
       ),
       body: ListView(
