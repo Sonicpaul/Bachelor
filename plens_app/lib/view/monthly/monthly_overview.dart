@@ -38,6 +38,7 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
     final user = Provider.of<User>(context);
 
     return Scaffold(
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -101,7 +102,9 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
             return Column(
               children: <Widget>[
                 Text(
-                  'Total worktime this month: ' + totalWorkTime.toString(),
+                  'Total worktime this month: ' +
+                      totalWorkTime.toString() +
+                      'h',
                   style: TextStyle(fontSize: 20),
                 ),
                 ListView.builder(
@@ -114,9 +117,10 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
                         margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
                         child: ListTile(
                           title: Text(
-                            workTimes[index].date +
+                            workTimes[index].date.replaceAll('-', '.') +
                                 ' - ' +
-                                workTimes[index].time.toString(),
+                                workTimes[index].time.toString() +
+                                'h',
                             style: TextStyle(fontSize: 20),
                           ),
                           subtitle: Text(

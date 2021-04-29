@@ -32,7 +32,10 @@ class Home extends StatelessWidget {
           actions: <Widget>[
             ElevatedButton.icon(
               icon: Icon(Icons.person),
-              label: Text('logout'),
+              label: Text(
+                'Logout',
+                style: TextStyle(fontSize: 15),
+              ),
               onPressed: () async {
                 await _auth.signOut();
               },
@@ -40,7 +43,7 @@ class Home extends StatelessWidget {
             ElevatedButton.icon(
                 onPressed: () => _showSettingsPanel(),
                 icon: Icon(Icons.account_circle_rounded),
-                label: Text('Profile'))
+                label: Text('Profile', style: TextStyle(fontSize: 15)))
           ],
         ),
         body: Column(

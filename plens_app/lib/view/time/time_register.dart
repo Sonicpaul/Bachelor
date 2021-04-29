@@ -50,6 +50,7 @@ class _TimeRegistrationState extends State<TimeRegistration> {
     final user = Provider.of<User>(context);
     _userUid = user.uid;
     return Scaffold(
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
