@@ -74,14 +74,19 @@ class _TimeRegistrationState extends State<TimeRegistration> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      DateFormat('dd-MM-yyyy').format(selectedDate).toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      DateFormat('dd-MM-yyyy')
+                          .format(selectedDate)
+                          .toString()
+                          .replaceAll('-', '.'),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     ElevatedButton(
-                        child: Text('Choose Date'),
+                        child:
+                            Text('Choose Date', style: TextStyle(fontSize: 18)),
                         onPressed: () => _selectDate(context)),
                   ],
                 ),
@@ -90,23 +95,25 @@ class _TimeRegistrationState extends State<TimeRegistration> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                      hintText: 'Enter the number of hours you worked today'),
+                      hintText: 'Enter the number of hours you worked'),
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9.0-9]')),
                   ],
                   onChanged: (val) => setState(() => _time = double.parse(val)),
+                  validator: (val) => val.isEmpty
+                      ? 'Enter the number of hours you worked'
+                      : null,
                 ),
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                      hintText:
-                          'Optional: add a text what you have done today'),
+                      hintText: 'Optional: What have you done?'),
                   onChanged: (val) => setState(() => _message = val),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  child: Text('Update'),
+                  child: Text('Add', style: TextStyle(fontSize: 18)),
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       await DatabaseService(uid: uuid.v1()).updateworkTime(

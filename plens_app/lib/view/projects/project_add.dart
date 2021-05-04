@@ -94,7 +94,7 @@ class _AddAProjectState extends State<AddAProject> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                      hintText: 'Enter the of a contact person'),
+                      hintText: 'Enter the name of a contact person'),
                   validator: (val) => val.isEmpty
                       ? 'Please enter the contact data for the Project'
                       : null,
@@ -104,7 +104,10 @@ class _AddAProjectState extends State<AddAProject> {
                 employeeSelection(),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  child: Text('Save'),
+                  child: Text(
+                    'Add new project',
+                    style: TextStyle(fontSize: 18),
+                  ),
                   onPressed: () async {
                     if (_formKey.currentState.validate() && save) {
                       await DatabaseService(uid: uuid.v1()).updateProjectData(

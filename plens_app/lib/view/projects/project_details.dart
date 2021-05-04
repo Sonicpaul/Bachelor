@@ -24,8 +24,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.blue[100],
         appBar: AppBar(
-          title: Text(widget.project.abbreviation),
           actions: <Widget>[
             ElevatedButton.icon(
                 icon: Icon(Icons.delete),
@@ -48,20 +48,25 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                     });
                   }
                 }),
-            ElevatedButton(
-                child: Text('Edit'),
+            ElevatedButton.icon(
+                icon: Icon(Icons.edit),
+                label: Text('Edit'),
                 onPressed: () {
                   for (String employee in widget.project.employees) {
                     if (widget.user.uid == employee) {
                       _showEditProject();
-                    } else if (widget.user.uid == widget.project.leader) {
-                      _showEditProject();
-                    } else {
-                      setState(() {
-                        error = 'You are not allowed to edit this project';
-                        size = 20;
-                      });
+                      isLeader = true;
                     }
+                  }
+                  if (widget.user.uid == widget.project.leader) {
+                    if (!isLeader) {
+                      _showEditProject();
+                    }
+                  } else {
+                    setState(() {
+                      error = 'You are not allowed to edit this project';
+                      size = 20;
+                    });
                   }
                 })
           ],
@@ -80,7 +85,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.center,
                   child: Text(
-                    widget.project.name,
+                    widget.project.name + ' - ' + widget.project.abbreviation,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -88,6 +93,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   ),
                 ),
                 Container(
+                  color: Colors.white,
                   padding: EdgeInsets.all(10),
                   width: MediaQuery.of(context).size.width,
                   child: Row(
@@ -101,7 +107,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       ),
                       Flexible(
                         flex: 2,
-                        child: Text('Address' +
+                        child: Text('Address:' +
                             '\n' +
                             widget.project.addressStreetAndNumber +
                             '\n' +
@@ -116,7 +122,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.center,
                   child: Text(
-                    'Customer',
+                    'Customer & Contact',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -221,7 +227,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                     'phone: ' +
                     leader.phone +
                     '\n' +
-                    'E-mail: ' +
+                    'email: ' +
                     leader.email);
               }
             }

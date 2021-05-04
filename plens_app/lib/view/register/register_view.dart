@@ -46,9 +46,9 @@ class _RegisterState extends State<Register> {
                     SizedBox(height: 20.0),
                     TextFormField(
                         decoration: textInputDecoration.copyWith(
-                            hintText: 'Enter email'),
+                            hintText: 'Enter your email'),
                         validator: (val) =>
-                            val.isEmpty ? 'Enter an E-mail' : null,
+                            val.isEmpty ? 'Enter your email address' : null,
                         onChanged: (val) {
                           setState(() => email = val);
                         }),
@@ -85,24 +85,25 @@ class _RegisterState extends State<Register> {
                                 setState(() {
                                   loading = true;
                                 });
+
+                                dynamic result = await _authService
+                                    .registerWithEmailAndPass(email, pass);
+                                if (result == null) {
+                                  setState(() => error =
+                                      'Please enter a valid email address');
+                                  loading = false;
+                                }
                               } else {
                                 setState(() {
-                                  error = 'passwords are not matching';
+                                  error =
+                                      'Please make sure your passwords are matching';
                                 });
-                              }
-
-                              dynamic result = await _authService
-                                  .registerWithEmailAndPass(email, pass);
-                              if (result == null) {
-                                setState(
-                                    () => error = 'please enter a valid Email');
-                                loading = false;
                               }
                             }
                           },
                           child: Text(
                             'Register',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                         ),
                         SizedBox(
@@ -111,7 +112,11 @@ class _RegisterState extends State<Register> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text('Already have an account?'),
+                            Text(
+                              'Already have an account?',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
                             SizedBox(
                               width: 20,
                             ),
@@ -119,7 +124,10 @@ class _RegisterState extends State<Register> {
                               onPressed: () {
                                 widget.toggleView();
                               },
-                              child: Text('Sign in'),
+                              child: Text(
+                                'Sign in',
+                                style: TextStyle(fontSize: 15),
+                              ),
                             )
                           ],
                         )
@@ -130,7 +138,10 @@ class _RegisterState extends State<Register> {
                     ),
                     Text(
                       error,
-                      style: TextStyle(color: Colors.red, fontSize: 20),
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),

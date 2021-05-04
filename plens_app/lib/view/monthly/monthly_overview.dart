@@ -58,18 +58,27 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                DateFormat('MM-yyyy').format(selectedDate).toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
+                DateFormat('MM-yyyy')
+                    .format(selectedDate)
+                    .toString()
+                    .replaceAll('-', '.'),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               SizedBox(
-                width: 10,
+                width: 20,
               ),
               ElevatedButton(
-                  child: Text('Choose Date'),
+                  child: Text(
+                    'Choose Date',
+                    style: TextStyle(fontSize: 18),
+                  ),
                   onPressed: () {
                     _selectMonth(context);
                   }),
             ],
+          ),
+          SizedBox(
+            height: 20,
           ),
           showMonthlyOverview(user.uid)
         ],
@@ -106,6 +115,9 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
                       totalWorkTime.toString() +
                       'h',
                   style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 ListView.builder(
                   shrinkWrap: true,

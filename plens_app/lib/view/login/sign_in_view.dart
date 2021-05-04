@@ -29,9 +29,11 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     void showPassResetDialog() {
       showModalBottomSheet(
+          isScrollControlled: true,
           context: context,
           builder: (context) {
             return Container(
+                height: MediaQuery.of(context).size.height - 600.0,
                 padding: EdgeInsets.all(20),
                 child: Form(
                     key: _resetKey,
@@ -66,7 +68,10 @@ class _SignInState extends State<SignIn> {
                                 }
                               }
                             },
-                            child: Text('Reset Password'))
+                            child: Text(
+                              'Reset password',
+                              style: TextStyle(fontSize: 20),
+                            ))
                       ],
                     )));
           });
@@ -77,6 +82,7 @@ class _SignInState extends State<SignIn> {
         : Scaffold(
             backgroundColor: Colors.blue[100],
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: Colors.blue[400],
               elevation: 0.0,
               title: Text('Sign in'),
@@ -93,7 +99,7 @@ class _SignInState extends State<SignIn> {
                         decoration: textInputDecoration.copyWith(
                             hintText: 'Enter email'),
                         validator: (val) =>
-                            val.isEmpty ? 'Enter an E-mail' : null,
+                            val.isEmpty ? 'Enter an email address' : null,
                         onChanged: (val) {
                           setState(() => email = val);
                         }),
@@ -121,7 +127,7 @@ class _SignInState extends State<SignIn> {
                               if (result == null) {
                                 setState(() {
                                   error =
-                                      'Could not Sign in with this email and password.';
+                                      'Could not sign in with this email and password.';
                                   loading = false;
                                 });
                               }
@@ -129,7 +135,7 @@ class _SignInState extends State<SignIn> {
                           },
                           child: Text(
                             'Sign in',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                         ),
                         SizedBox(
@@ -138,7 +144,11 @@ class _SignInState extends State<SignIn> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("Don't have a account?"),
+                            Text(
+                              "Don't have a account?",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
                             SizedBox(
                               width: 20,
                             ),
@@ -146,24 +156,33 @@ class _SignInState extends State<SignIn> {
                               onPressed: () {
                                 widget.toggleView();
                               },
-                              child: Text('Register'),
+                              child: Text(
+                                'Register',
+                                style: TextStyle(fontSize: 15),
+                              ),
                             ),
                           ],
                         )
                       ],
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 40,
                     ),
                     Text(
                       error,
-                      style: TextStyle(color: Colors.red, fontSize: 20),
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     ElevatedButton(
-                        child: Text('Forgot password?'),
+                        child: Text(
+                          'Forgot password?',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
                         onPressed: () async {
                           showPassResetDialog();
                         }),

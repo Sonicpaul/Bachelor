@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:plens_app/models/user.dart';
 import 'package:plens_app/services/auth.dart';
 import 'package:plens_app/services/database.dart';
@@ -43,7 +44,8 @@ class _SettingsFormState extends State<SettingsForm> {
                   SizedBox(height: 20),
                   TextFormField(
                     initialValue: userData.name,
-                    decoration: textInputDecoration,
+                    decoration: textInputDecoration.copyWith(
+                        hintText: 'Enter your name'),
                     validator: (val) =>
                         val.isEmpty ? 'Please enter a name' : null,
                     onChanged: (val) => setState(() => _currentName = val),
@@ -51,9 +53,10 @@ class _SettingsFormState extends State<SettingsForm> {
                   SizedBox(height: 20),
                   TextFormField(
                     initialValue: userData.email,
-                    decoration: textInputDecoration,
+                    decoration: textInputDecoration.copyWith(
+                        hintText: 'Enter your email'),
                     validator: (val) =>
-                        val.isEmpty ? 'Please enter a email' : null,
+                        val.isEmpty ? 'Please enter a email address' : null,
                     onChanged: (val) => setState(() => _currentEmail = val),
                   ),
                   Text(error,
@@ -61,14 +64,21 @@ class _SettingsFormState extends State<SettingsForm> {
                   SizedBox(height: 20),
                   TextFormField(
                     initialValue: userData.phone,
-                    decoration: textInputDecoration,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[+0-9 ]')),
+                    ],
+                    decoration: textInputDecoration.copyWith(
+                        hintText: 'Enter your phone nubmer'),
                     validator: (val) =>
                         val.isEmpty ? 'Please enter a phone number' : null,
                     onChanged: (val) => setState(() => _currentPhone = val),
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    child: Text('Update'),
+                    child: Text(
+                      'Update',
+                      style: TextStyle(fontSize: 15),
+                    ),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         dynamic result = await _authService
