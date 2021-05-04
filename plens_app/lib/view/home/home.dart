@@ -62,7 +62,8 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => UserWidget()));
+                                builder: (context) => UserWidget(),
+                                fullscreenDialog: true));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +92,8 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ProjectWidget()));
+                                builder: (context) => ProjectWidget(),
+                                fullscreenDialog: true));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +127,8 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TimeRegistration()));
+                                builder: (context) => TimeRegistration(),
+                                fullscreenDialog: true));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -158,7 +161,8 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MonthlyOverview()));
+                                builder: (context) => MonthlyOverview(),
+                                fullscreenDialog: true));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

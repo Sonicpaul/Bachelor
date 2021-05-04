@@ -29,6 +29,7 @@ class _TimeRegistrationState extends State<TimeRegistration> {
   String _projectUid;
   String _message;
   var uuid = Uuid();
+  bool save = false;
 
   // a datepicker to set the date the user wants to set his worktime
   Future<void> _selectDate(BuildContext context) async {
@@ -115,7 +116,7 @@ class _TimeRegistrationState extends State<TimeRegistration> {
                 ElevatedButton(
                   child: Text('Add', style: TextStyle(fontSize: 18)),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState.validate() && save) {
                       await DatabaseService(uid: uuid.v1()).updateworkTime(
                           DateFormat('dd-MM-yyyy')
                               .format(selectedDate)
@@ -159,6 +160,7 @@ class _TimeRegistrationState extends State<TimeRegistration> {
                 onChanged: (value) {
                   setState(() {
                     _projectUid = value;
+                    save = true;
                   });
                 });
           } else if (snapshot.hasError) {

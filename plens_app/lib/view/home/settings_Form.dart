@@ -65,7 +65,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   TextFormField(
                     initialValue: userData.phone,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp(r'[+0-9 ]')),
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9 ]')),
                     ],
                     decoration: textInputDecoration.copyWith(
                         hintText: 'Enter your phone nubmer'),
