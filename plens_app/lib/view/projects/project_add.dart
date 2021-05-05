@@ -45,18 +45,18 @@ class _AddAProjectState extends State<AddAProject> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                      hintText: 'Enter a name for the new Project'),
+                      hintText: 'Enter a name for the new project'),
                   validator: (val) => val.isEmpty
-                      ? 'Please enter a name for the Project'
+                      ? 'Please enter a name for the project'
                       : null,
                   onChanged: (val) => setState(() => _name = val),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                      hintText: 'Give the Project an abbreviation'),
+                      hintText: 'Give the project an abbreviation'),
                   validator: (val) => val.isEmpty
-                      ? 'Please enter an abbreviation for the Project'
+                      ? 'Please enter an abbreviation for the project'
                       : null,
                   onChanged: (val) => setState(() => _abbreviation = val),
                 ),
@@ -65,9 +65,9 @@ class _AddAProjectState extends State<AddAProject> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                      hintText: 'Enter the Street and number of the address'),
+                      hintText: 'Enter the street and house number'),
                   validator: (val) => val.isEmpty
-                      ? 'Please enter the address for the Project'
+                      ? 'Please enter the address for the project'
                       : null,
                   onChanged: (val) =>
                       setState(() => _addressStreetAndNumber = val),
@@ -75,9 +75,9 @@ class _AddAProjectState extends State<AddAProject> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                      hintText: 'Enter the PostCode and City'),
+                      hintText: 'Enter the postcode and city'),
                   validator: (val) => val.isEmpty
-                      ? 'Please enter the address for the Project'
+                      ? 'Please enter the address for the project'
                       : null,
                   onChanged: (val) =>
                       setState(() => _addressPostcodeAndCity = val),
@@ -85,9 +85,9 @@ class _AddAProjectState extends State<AddAProject> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                      hintText: 'Enter the name of the Customer'),
+                      hintText: 'Enter the name of the customer'),
                   validator: (val) => val.isEmpty
-                      ? 'Please enter the name of the customer for the Project'
+                      ? 'Please enter the name of the customer for the project'
                       : null,
                   onChanged: (val) => setState(() => _customer = val),
                 ),
@@ -96,7 +96,7 @@ class _AddAProjectState extends State<AddAProject> {
                   decoration: textInputDecoration.copyWith(
                       hintText: 'Enter the name of a contact person'),
                   validator: (val) => val.isEmpty
-                      ? 'Please enter the contact data for the Project'
+                      ? 'Please enter the contact data for the project'
                       : null,
                   onChanged: (val) => setState(() => _contact = val),
                 ),
@@ -144,7 +144,7 @@ class _AddAProjectState extends State<AddAProject> {
                 .toList();
             return SearchableDropdown.single(
                 items: dropdownItem,
-                hint: 'Select the leader of this Project',
+                hint: 'Select the leader of this project',
                 searchHint: '',
                 value: _leader,
                 isExpanded: true,
@@ -178,7 +178,7 @@ class _AddAProjectState extends State<AddAProject> {
             return SearchableDropdown.multiple(
               items: dropdownItem,
               selectedItems: selectedItems,
-              hint: 'Select the employees you want to assign to the Project.',
+              hint: 'Select the employees you want to assign to the project.',
               searchHint: '',
               doneButton: "Apply",
               closeButton: (SizedBox.shrink()),

@@ -96,11 +96,11 @@ class _MOnthlyOverviewState extends State<MonthlyOverview> {
     return FutureBuilder<List<WorkTime>>(
         future: DatabaseService().getWorkTimeFromUser(userUid),
         builder: (context, snapshot) {
-          workTimes = [];
           if (snapshot.hasData) {
+            workTimes = [];
             monthAndYear =
                 DateFormat('MM-yyyy').format(selectedDate).toString();
-            final List<WorkTime> worktimeList = snapshot.data;
+            List<WorkTime> worktimeList = snapshot.data;
             for (WorkTime workTimeMonthly in worktimeList) {
               monthAndYearDatabase = workTimeMonthly.date.substring(3);
               if (monthAndYear == monthAndYearDatabase) {
